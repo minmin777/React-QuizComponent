@@ -14,13 +14,34 @@ class QuizQuestion extends Component {
                     })}
                 </ul>
             </section>
+            {this.Incorrect(this.state.incorrectAnswer)}
         </main>
+    }
+
+    Incorrect(incorrectAnswer){
+        if(incorrectAnswer){
+            return <p className='error'>Sorry, that's not right</p>
+        }
+        return null
     }
 
     handleClick(buttonText){
         if(buttonText === this.props.quiz_question.answer){
             this.props.showNextQuestionHandler()
+            this.setState((state) => {
+                return {incorrectAnswer: false}
+            })
+        }else{
+            this.setState((state) => {
+                return {incorrectAnswer: true}
+            })
         }
+
+    }
+
+    constructor(props){
+        super(props)
+        this.state = {incorrectAnswer: false}
     }
 }
 
